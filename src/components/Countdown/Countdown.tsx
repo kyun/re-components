@@ -1,47 +1,55 @@
 import React from 'react';
 
+
 interface CountdownProps{
-  ref?: any;
-  props: {
-    interval?: 10 | 100 | 1000 // milliseconds
-    value?: number
-    autoStart?: boolean
-    intervalDelay?: number;
-    render?: ({d,h,m,s}:{[key:string]:any}) => any;
-    onMount?: ()=>void;
-    onUnmount?: ()=>void;
-    onStart?: ()=>void;
-    onTick?: ({d,h,m,s}:{[key:string]:any}) => void;
-    onFinish?: ()=>void;
-    style?: React.CSSProperties;
-    className?: string;
-  }
+
+  interval?: 1000 // 10 | 100 | 1000 // milliseconds
+  value?: number
+  autoStart?: boolean
+  render?: ({d,h,m,s}:{[key:string]:any}) => React.ReactNode;
+
+  onMount?: ()=>void;
+  onUnmount?: ()=>void;
+
+  onStart?: ()=>void;
+  onPause?: ({d,h,m,s}:{[key:string]:string})=>void;
+  onComplete?: ()=>void;
+  onTick?: ({d,h,m,s}:{[key:string]:string}) => void;
+
+  style?: React.CSSProperties;
+  className?: string;
 
 }
-function Countdown({interval=1000, value=0, autoStart = false, render, onStart, onTick, onFinish, onUnmount }:any, ref:any ){
+
+function Countdown({interval=1000, value=0, autoStart = true, render, onStart, onPause, onTick, onComplete, onMount, onUnmount }:CountdownProps, ref:any ){
   const [count, setCount] = React.useState(0);
-  const [start, setStart] = React.useState(autoStart);
+  const [isRunnning, setIsRunning] = React.useState(autoStart);
+  const [completed, setCompleted] = React.useState(false);
   React.useImperativeHandle(ref, () => ({
     start() {
-      setStart(true);
+      setIsRunning(true);
+      onStart?.();
     },
     pause(){
-      setStart(false);
-    }
+      setIsRunning(false);
+      onPause?.(secondsToDay(count-1));
+    },
   }));
   useInterval(() => {
-    if(start){
-      setCount((prev)=>prev-1);
-      onTick?.(secToDay(count-1));
+    if(isRunnning){
+      setCount( (prev) => prev-1 );
+      onTick?.(secondsToDay(count-1));
     }
     if( (count-1) === 0){
-      onFinish?.();
+      setCompleted(true);
+      onComplete?.();
     }
-  }, count > 0 ? interval : null);
+  }, count > 0 ? interval : null , isRunnning);
 
   
   React.useEffect(()=>{
     //ComponentDidMount
+    onMount?.();
     const ms = 1000 / interval;
     setCount(value * ms);
     return () => {
@@ -52,10 +60,7 @@ function Countdown({interval=1000, value=0, autoStart = false, render, onStart, 
   return (
   <>
     {
-    render?.({...secToDay(count)}) ||
-     <div>
-      {count}
-    </div>
+    render?.({...secondsToDay(count), completed}) || <div>{count}</div>
   }
   </>
   )
@@ -63,14 +68,14 @@ function Countdown({interval=1000, value=0, autoStart = false, render, onStart, 
 export default React.forwardRef(Countdown);
 
 
-function secToDay(seconds:number){
-  let d = (~~(seconds/(3600*24))).toString().padStart(2,'0');
-  let h = (~~(seconds % (3600*24) /3600)).toString().padStart(2,'0');
-  let m = (~~((seconds % (3600*24) % 3600) / 60)).toString().padStart(2,'0');
-  let s = (~~(seconds % 60)).toString().padStart(2,'0');
-  return {d,h,m,s};
+function secondsToDay(seconds:number){
+  let d = (~~(seconds / (60 * 60 * 24))).toString().padStart(2, '0');
+  let h = (~~(seconds % (60 * 60 *24) /(60 * 60))).toString().padStart(2, '0');
+  let m = (~~((seconds % (60 * 60 *24) % (60 * 60)) / 60)).toString().padStart(2, '0');
+  let s = (~~(seconds % 60)).toString().padStart(2, '0');
+  return { d, h, m, s };
 }
-function useInterval(callback: any, delay: any) {
+function useInterval(callback: any, delay: any, isRunnning: boolean) {
   const savedCallback: any = React.useRef();
 
   React.useEffect(() => {
@@ -81,9 +86,9 @@ function useInterval(callback: any, delay: any) {
     function tick() {
       savedCallback.current();
     }
-    if (delay !== null) {
+    if (isRunnning && delay !== null) {
       let id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
-  }, [delay]);
+  }, [delay, isRunnning]);
 };

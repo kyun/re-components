@@ -1,3 +1,6 @@
 # re-components
-디자인에 종속되지 않는 재사용 가능한 리액트 컴포넌트를 모았습니다.
+Reusable components for React.
 
+## Motivation
+
+I've made a lot of COMPONENTs for React.js in my project. Almost all of them are developed for only a specific project and used. They depend on project specifics. When I developed a COMPONENT in a project, and I tried to use that again, I had to retouch that. I think it is not good. 
