@@ -11,7 +11,7 @@ A reusable button component for React.
 
 ### Features
 
-- [] ...
+- [ ] ...
 
 
 ### Basic Usage
@@ -32,7 +32,7 @@ ReactDOM.render(
 ### Custom Usage
 In case you want to change the style of the component, or you want to add `onClick` event or something, you can do this by using [`props`](#props).
 
-
+```js
 import ReactDOM from 'react-dom';
 import Button from './components/Button;
 
@@ -76,8 +76,15 @@ ReactDOM.render(
 );
 ```
 
+
 ### Props
 
 |Name|Type|Default|Description|
 |:--|:--:|:-----:|:-----------|
-|[**key**](#key)|<code>string&#124;number</code>|`undefined`|React  [**key**](https://reactjs.org/docs/lists-and-keys.html#keys); can be used to restart the countdown|
+|key|<code>string&#124;number</code>|`undefined`|React  [**key**](https://reactjs.org/docs/lists-and-keys.html#keys); can be used to restart the countdown|
+|children|`React.ReactNode`|`null`|A React child for the button|
+|style|`React.CSSProperties`|`undefined`|CSS Style|
+|className|`string`|`undefined`|className|
+|onClick|`function`|`undefined`|onClick event|
+|disabled|`boolean`|`false`|make disabled the button|
+|block|`boolean`|`false`|make block the button|
