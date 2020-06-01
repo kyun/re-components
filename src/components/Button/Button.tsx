@@ -7,7 +7,6 @@ interface ButtonProps{
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   block?: boolean;
-  [key: string]: any;
 }
 
 function Button({disabled, onClick, className, block, style, children}:ButtonProps, ref:any){

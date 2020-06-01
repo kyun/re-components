@@ -11,7 +11,7 @@ A reusable button component for React.
 
 ### Features
 
-- [ ] ...
+- [ ] `block` props 를 넣을까 말까?
 
 
 ### Basic Usage
