@@ -5,9 +5,9 @@ import React from 'react';
 function ButtonPage(){
 
   return (
-    <>
-    ButtonPage
-    </>
+    <main>
+        Button Page
+    </main>
   )
 }
 export default ButtonPage;

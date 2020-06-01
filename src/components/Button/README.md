@@ -1,20 +1,20 @@
-# React &lt;Button /&gt;
+# &lt;Button /&gt;
 A reusable button component for React.
 
 ## Contents
 
 - [Features](#features)
-- [Basic Usage](#basic-usage)
-- [Custom Usage](#custom-usage)
+- [Examples](#examples)
 - [Props](#props)
 
 
 ### Features
 
-- [ ] `block` props 를 넣을까 말까?
+- [x] ~~props `block` 삭제.~~
 
+### Examples
 
-### Basic Usage
+#### Basic Usage
 A simple example of a Button named `Sample Button`.
 
 ```js
@@ -27,9 +27,8 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-[Live Demo](https://codesandbox.io/s/cool-fermat-uk0dq)
 
-### Custom Usage
+#### Custom Usage
 In case you want to change the style of the component, or you want to add `onClick` event or something, you can do this by using [`props`](#props).
 
 ```js
@@ -51,10 +50,8 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-[Live Demo](https://codesandbox.io/s/cool-fermat-uk0dq)
 
-
-#### Using Ref
+#### Ref Usage
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -62,7 +59,6 @@ import Button from './components/Button;
 
 function App(){
   const btnEl = React.useRef(null);
-
   React.useEffect(()=>{
     if(btnEl.current){
       btnEl.current.focus();
@@ -87,4 +83,3 @@ ReactDOM.render(
 |className|`string`|`undefined`|className|
 |onClick|`function`|`undefined`|onClick event|
 |disabled|`boolean`|`false`|make disabled the button|
-|block|`boolean`|`false`|make block the button|
