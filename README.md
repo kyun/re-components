@@ -1,4 +1,7 @@
 # re-components
+
+![logo](./doc/logo.png)
+
 Reusable components for React.
 
 ## Motivation
