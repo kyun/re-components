@@ -56,7 +56,7 @@ function Countdown({interval=1000, value=0, autoStart = true, render, onStart, o
       //ComponentWillUnmount
       onUnmount?.();
     }
-  }, []);
+  }, [onMount, setCount, onUnmount, interval, value]);
   return (
   <>
     {
