@@ -1,44 +1,50 @@
-# React &lt;Input /&gt;
+# &lt;Input /&gt;
 A reusable input component for React.
 
-### Basic Usage
-A simple example of how to set up a countdown which counts down from 15 seconds.
+## Contents
+
+- [Features](#features)
+- [Examples](#examples)
+- [Props](#props)
+
+### Features
+
+- [ ] `inputMode` 설정
+
+### Examples
+
+#### Basic Usage
+A simple example of a Input with `prefix` and `suffix`
 
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Countdown from './components/Countdown;
+import Input from './components/Input';
 
 ReactDOM.render(
-  <Countdown value={15} />,
+  <Input prefix={`prefix`} suffix={`suffix`} />,
   document.getElementById('root')
 );
 ```
-[Live Demo](https://codesandbox.io/s/cool-fermat-uk0dq)
 
-### Custom & Conditional Rendering
-In case you want to change the output of the component, you can do this by using a custome [`render`](#render).
-
-#### Custom render with onComplete
+A simple example of a Input with `addonBefore` and `addonAfter`
 
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Countdown from './components/Countdown;
+import Input from './components/Inpu';
+import Button from './components/Button';
 
-function CustomRender({d,h,m,s}){
-  return(
-    <div style={{background: 'gray', padding: '8px'}}>
-      <span>{d}</span>
-      <span>{h}</span>
-      <span>{m}</span>
-      <span style={{color: 'red'}}>{s}</span>
-    </div>
-  )
-}
 ReactDOM.render(
-  <Countdown value={15} render={CustomRender} />,
+  <Input addonBefore={<Button>-</Button>} addonAfter={<Button>+</Button>} />,
   document.getElementById('root')
 );
 ```
-[Live Demo](https://codesandbox.io/s/cool-fermat-uk0dq)
+
+### Props
+|Name|Type|Default|Description|
+|:--|:--:|:-----:|:-----------|
+|key|<code>string&#124;number</code>|`undefined`|React  [**key**](https://reactjs.org/docs/lists-and-keys.html#keys); can be used to restart the countdown|
+|placeholder|`string | number`|`null`|hint|
+|prefix|`React.ReactNode`|`undefined`|prefix|
+|suffix|`React.ReactNode`|`undefined`|suffix|

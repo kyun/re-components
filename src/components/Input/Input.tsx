@@ -1,4 +1,4 @@
-import React, { EventHandler } from 'react';
+import React from 'react';
 import './Input.css';
 interface InputProps{
   id?: string;
@@ -22,7 +22,7 @@ interface InputProps{
 }
 
 
-function Input({type="text",inputMode="text",value,defaultValue,addonBefore,addonAfter,prefix,suffix,disabled,onChange,formatter,...props}:InputProps, ref:any){
+function Input({type="text", inputMode="text",value, style, defaultValue, placeholder, addonBefore,addonAfter,prefix,suffix,disabled,onChange,formatter}:InputProps, ref:any){
   function handleChange(e:React.ChangeEvent<any>){
     console.log(e.target.value);
     let newValue:any = '';
@@ -34,9 +34,9 @@ function Input({type="text",inputMode="text",value,defaultValue,addonBefore,addo
   return(
     <>
     {addonBefore}
-    <label style={{border: '1px solid gray'}}>
+    <label style={{border: '1px solid gray', ...style}}>
       {prefix}
-      <input inputMode={inputMode} ref={ref} defaultValue={defaultValue} value={value} type={type} style={{border: '0'}} onChange={handleChange} disabled={disabled}/>
+      <input inputMode={inputMode} ref={ref} defaultValue={defaultValue} value={value} placeholder={placeholder} type={type} style={{border: '0'}} onChange={handleChange} disabled={disabled}/>
       {suffix}
     </label>
     {addonAfter}

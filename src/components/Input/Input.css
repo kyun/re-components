@@ -1,9 +1,15 @@
+label{
+  display: inline-flex;
+}
 label:focus-within{
-
   outline-width: 1px;
   outline-style: solid;
   outline-color: orange;
-
+}
+label > input{
+  font-size: inherit;
+  color: inherit;
+  text-align: inherit;
 }
 
 input:focus{
