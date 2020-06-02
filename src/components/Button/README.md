@@ -11,6 +11,8 @@ A reusable button component for React.
 ### Features
 
 - [x] ~~props `block` 삭제.~~
+- [ ] `<Button.Submit />` 추가
+ 
 
 ### Examples
 

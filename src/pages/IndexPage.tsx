@@ -2,12 +2,12 @@ import React from 'react';
 
 
 
-function ButtonPage(){
+function IndexPage(){
 
   return (
     <main style={{maxWidth: 768, margin: 'auto'}}>
-        Button Page
+      IndexPage
     </main>
   )
 }
-export default ButtonPage;
+export default IndexPage;
