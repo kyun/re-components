@@ -14,6 +14,13 @@ I've made a lot of COMPONENTs for React.js in my project. Almost all of them are
 - [ ] Countdown
 - [ ] InputPIN
 - [ ] Calendar
+- [ ] Select
+- [ ] Modal
+- [ ] Checkbox
+- [ ] Radiobox
+- [ ] Range
+- [ ] Stopwatch
+
 
 ## Contents
 - [Button](https://github.com/zynkn/re-components/tree/master/src/components/Button)

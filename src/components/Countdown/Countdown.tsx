@@ -6,7 +6,7 @@ interface CountdownProps{
   interval?: 1000 // 10 | 100 | 1000 // milliseconds
   value?: number
   autoStart?: boolean
-  render?: ({d,h,m,s}:{[key:string]:any}) => React.ReactNode;
+  render?: ({d,h,m,s, completed, isRunning}:{[key:string]:any}) => React.ReactNode;
 
   onMount?: ()=>void;
   onUnmount?: ()=>void;
@@ -23,7 +23,7 @@ interface CountdownProps{
 
 function Countdown({interval=1000, value=0, autoStart = true, render, onStart, onPause, onTick, onComplete, onMount, onUnmount }:CountdownProps, ref:any ){
   const [count, setCount] = React.useState(0);
-  const [isRunnning, setIsRunning] = React.useState(autoStart);
+  const [isRunning, setIsRunning] = React.useState(autoStart);
   const [completed, setCompleted] = React.useState(false);
   React.useImperativeHandle(ref, () => ({
     start() {
@@ -36,7 +36,7 @@ function Countdown({interval=1000, value=0, autoStart = true, render, onStart, o
     },
   }));
   useInterval(() => {
-    if(isRunnning){
+    if(isRunning){
       setCount( (prev) => prev-1 );
       onTick?.(secondsToDay(count-1));
     }
@@ -44,7 +44,7 @@ function Countdown({interval=1000, value=0, autoStart = true, render, onStart, o
       setCompleted(true);
       onComplete?.();
     }
-  }, count > 0 ? interval : null , isRunnning);
+  }, count > 0 ? interval : null , isRunning);
 
   
   React.useEffect(()=>{
@@ -60,7 +60,7 @@ function Countdown({interval=1000, value=0, autoStart = true, render, onStart, o
   return (
   <>
     {
-    render?.({...secondsToDay(count), completed}) || <div>{count}</div>
+    render?.({...secondsToDay(count), completed, isRunning}) || <div>{count}</div>
   }
   </>
   )

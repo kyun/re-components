@@ -45,6 +45,6 @@ ReactDOM.render(
 |Name|Type|Default|Description|
 |:--|:--:|:-----:|:-----------|
 |key|<code>string&#124;number</code>|`undefined`|React  [**key**](https://reactjs.org/docs/lists-and-keys.html#keys); can be used to restart the countdown|
-|placeholder|`string | number`|`null`|hint|
+|placeholder|<code>string&#124;number</code>|`null`|hint|
 |prefix|`React.ReactNode`|`undefined`|prefix|
 |suffix|`React.ReactNode`|`undefined`|suffix|
