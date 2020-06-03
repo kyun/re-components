@@ -39,7 +39,7 @@ function Input({type="text", inputMode="text",value, style, defaultValue, placeh
     onChange?.(newValue);
   }
   return(
-    <>
+    <div className="Input-wrapper" style={{display: 'inline-flex'}}>
     {addonBefore}
     <label style={{border: '1px solid gray', ...style}}>
       {prefix}
@@ -47,7 +47,7 @@ function Input({type="text", inputMode="text",value, style, defaultValue, placeh
       {suffix}
     </label>
     {addonAfter}
-    </>
+    </div>
   )
 }
 

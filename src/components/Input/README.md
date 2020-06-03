@@ -9,11 +9,12 @@ A reusable input component for React.
 
 ### Features
 
-- [ ] `inputMode` 설정
+- [x] `inputMode` 설정
 - [ ] `<Input.Password>`
 - [ ] `<Input.Textarea>`
 - [ ] `clear()`
 - [ ] `hide()`
+- [ ] `validator`
 
 
 ### Examples
