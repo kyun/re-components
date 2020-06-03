@@ -10,6 +10,8 @@ A reusable input component for React.
 ### Features
 
 - [ ] `inputMode` 설정
+- [ ] `<Input.Password>`
+- [ ] `<Input.Textarea>`
 
 ### Examples
 
