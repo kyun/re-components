@@ -1,6 +1,13 @@
 import React from 'react';
 import './Input.css';
-interface InputProps{
+import Password from './Input.Password';
+
+interface CompoundedComponent extends React.ForwardRefExoticComponent<any>{
+  Password: React.FC<InputProps>;
+}
+
+
+export interface InputProps{
   id?: string;
   placeholder?: string;
   style?: React.CSSProperties;
@@ -12,7 +19,7 @@ interface InputProps{
   disabled?: boolean;
   block?: boolean;
   formatter?: any;
-  type?: "text" | "number" | "email" | "password" | "tel";
+  type?: "text" | "number" | "email" | "tel";
   inputMode?: "text" | "numeric";
   value?: number|string|any;
   defaultValue?: number | string;
@@ -44,4 +51,5 @@ function Input({type="text", inputMode="text",value, style, defaultValue, placeh
   )
 }
 
-export default React.forwardRef(Input);
+Input.Password = Password;
+export default React.forwardRef(Input) as CompoundedComponent

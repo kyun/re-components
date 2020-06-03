@@ -10,6 +10,7 @@ function IndexPage(){
     <main style={{maxWidth: 768, margin: 'auto'}}>
       IndexPage
       <Countdown value={30} />
+      <Input.Password />
     </main>
   )
 }

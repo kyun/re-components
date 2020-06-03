@@ -12,6 +12,9 @@ A reusable input component for React.
 - [ ] `inputMode` 설정
 - [ ] `<Input.Password>`
 - [ ] `<Input.Textarea>`
+- [ ] `clear()`
+- [ ] `hide()`
+
 
 ### Examples
 
