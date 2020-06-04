@@ -2,7 +2,7 @@ import React from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { FaUserAlt } from 'react-icons/fa';
-
+import './InputPage.css';
 
 
 function Prefixed(){
@@ -13,18 +13,34 @@ function Prefixed(){
 }
 function AddonAfter(){
   return (
-    <Button style={{fontSize: 20, padding: 8}}>
+    <Button className="addon-after">
       Submit
     </Button>
   )
 }
-function IndexPage(){
 
+function AddonBefore(){
+  return(
+    <div className="addon-before">
+      <span>http://</span>
+    </div>
+  )
+}
+function IndexPage(){
   return (
     <main style={{maxWidth: 768, margin: 'auto'}}>
-      <Input prefix={<Prefixed />} addonAfter={<AddonAfter />} style={{ padding: 8, borderRadius: 5,fontSize: 20, alignItems: 'center' }}/>
-      <Input inputMode="numeric" prefix={<Prefixed />} addonAfter={<AddonAfter />} style={{ padding: 8, border: '2px solid #02aDEF', borderRadius: 5,fontSize: 20, alignItems: 'center' }}/>
+      <div style={{padding: 8, border: '1px solid gray'}}>
+        <p>Basic Usage</p>
+        <Input className="basic-input" placeholder="Basic usage" />
+        <p>Using Addon</p>
+        <Input
+          addonBefore={<AddonBefore />}
+          addonAfter={<AddonAfter />}
+          style={{padding: '6px 4px', border: '1px solid #bebebe', fontSize: '11pt'}}
+          placeholder="mysite" />
 
+      </div>
+      <Input maxLength={4} prefix={<Prefixed />} addonAfter={<AddonAfter />} style={{ padding: 8, borderRadius: 5,fontSize: 20, alignItems: 'center' }}/>
     </main>
   )
 }

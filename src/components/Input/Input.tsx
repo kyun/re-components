@@ -10,6 +10,7 @@ interface CompoundedComponent extends React.ForwardRefExoticComponent<any>{
 export interface InputProps{
   id?: string;
   placeholder?: string;
+  wrapperStyle?: React.CSSProperties;
   style?: React.CSSProperties;
   className?: string;
   prefix?: React.ReactNode;
@@ -17,11 +18,10 @@ export interface InputProps{
   addonBefore?: React.ReactNode;
   addonAfter?: React.ReactNode;
   disabled?: boolean;
-  block?: boolean;
-  formatter?: any;
+  maxLength?: number;
   type?: "text" | "number" | "email" | "tel";
   inputMode?: "text" | "numeric";
-  value?: number|string|any;
+  value?: number|string;
   defaultValue?: number | string;
   onChange?: (e:any) => void;
   onPressEnter?: () => void;
@@ -29,21 +29,25 @@ export interface InputProps{
 }
 
 
-function Input({type="text", inputMode="text",value, style, defaultValue, placeholder, addonBefore,addonAfter,prefix,suffix,disabled,onChange,formatter}:InputProps, ref:any){
+function Input({type="text", id,className, inputMode="text",value, style,wrapperStyle, defaultValue, placeholder, addonBefore,addonAfter,prefix,suffix,disabled,onChange,onPressEnter,maxLength}:InputProps, ref:any){
   function handleChange(e:React.ChangeEvent<any>){
-    console.log(e.target.value);
-    let newValue:any = '';
-    if(formatter){
-      newValue = formatter(e.target.value);
+    onChange?.(e.target.value);
+  }
+  function handleKeyDown(e:React.KeyboardEvent){
+    if(e.key === 'Enter'){
+      onPressEnter?.();
     }
-    onChange?.(newValue);
   }
   return(
-    <div className="Input-wrapper" style={{display: 'inline-flex'}}>
+    <div className="___Input-wrapper" style={{...wrapperStyle}}>
     {addonBefore}
-    <label style={{border: '1px solid gray', ...style}}>
+    <label className={className} htmlFor={id} style={{ ...style}}>
       {prefix}
-      <input inputMode={inputMode} ref={ref} defaultValue={defaultValue} value={value} placeholder={placeholder} type={type} style={{border: '0'}} onChange={handleChange} disabled={disabled}/>
+      <input id={id} inputMode={inputMode} ref={ref} maxLength={maxLength}
+            defaultValue={defaultValue} value={value} 
+            placeholder={placeholder} type={type} style={{border: '0', padding:0, width: 'inherit', boxSizing: 'border-box'}} 
+            onKeyDown={handleKeyDown} onChange={handleChange} 
+            disabled={disabled}/>
       {suffix}
     </label>
     {addonAfter}

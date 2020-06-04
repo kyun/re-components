@@ -1,22 +1,22 @@
-label{
+/* .___Input-wrapper > label{
   display: inline-flex;
-}
-label:focus-within{
-  outline-width: 1px;
+} */
+.___Input-wrapper > label:focus-within{
+  /* outline-width: 1px;
   outline-style: solid;
-  outline-color: orange;
+  outline-color: orange; */
 }
-label > input{
+.___Input-wrapper > label > input{
   font-size: inherit;
   color: inherit;
   text-align: inherit;
 }
 
-input:focus{
+.___Input-wrapper > label > input:focus{
   outline: none;
 }
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+.___Input-wrapper > label > input[type=number]::-webkit-inner-spin-button, 
+.___Input-wrapper > label > input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
 }
