@@ -10,7 +10,7 @@ I've made a lot of COMPONENTs for React.js in my project. Almost all of them are
 
 ## Features
 - [x] Button
-- [ ] Input
+- [x] Input
 - [ ] Countdown
 - [ ] InputPIN
 - [ ] Calendar
@@ -22,5 +22,6 @@ I've made a lot of COMPONENTs for React.js in my project. Almost all of them are
 - [ ] Stopwatch
 
 
-## Contents
+## Components
 - [Button](https://github.com/zynkn/re-components/tree/master/src/components/Button)
+- [Input](https://github.com/zynkn/re-components/tree/master/src/components/Input)
