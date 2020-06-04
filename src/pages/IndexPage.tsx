@@ -13,9 +13,11 @@ function Prefixed(){
 }
 function AddonAfter(){
   return (
-    <Button className="addon-after">
-      Submit
-    </Button>
+      <Button className="addon-after">
+        <span>Submit</span>
+      </Button>
+
+
   )
 }
 
@@ -38,9 +40,13 @@ function IndexPage(){
           addonAfter={<AddonAfter />}
           style={{padding: '6px 4px', border: '1px solid #bebebe', fontSize: '11pt'}}
           placeholder="mysite" />
-
+        <br/>
+        <Input
+          addonBefore={<AddonBefore />}
+          suffix={<span style={{color: '#bebebe'}}>.com</span>}
+          style={{padding: '6px 8px', border: '1px solid #bebebe', borderRadius: '0 3px 3px 0', fontSize: '11pt'}}
+        />
       </div>
-      <Input maxLength={4} prefix={<Prefixed />} addonAfter={<AddonAfter />} style={{ padding: 8, borderRadius: 5,fontSize: 20, alignItems: 'center' }}/>
     </main>
   )
 }

@@ -9,7 +9,6 @@
 }
 .basic-input:focus-within{
   border: 1px solid #40a9ff !important;
-  //outline-color: #40a9ff;
 }
 
 .addon-before{
@@ -25,6 +24,7 @@
 }
 
 .addon-after{
+  font-family: inherit;
   display: inline-block;
   background-color: #f0f0f0;
   padding: 6px 11px;
@@ -34,4 +34,5 @@
   border-left: none;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+  
 }

@@ -54,3 +54,12 @@ ReactDOM.render(
 |placeholder|<code>string&#124;number</code>|`null`|hint|
 |prefix|`React.ReactNode`|`undefined`|prefix|
 |suffix|`React.ReactNode`|`undefined`|suffix|
+|style|`React.CSSProperties`|`undefined`|CSS Style|
+|wrapperStyle|`React.CSSProperties`|`undefined`|CSS Style|
+|disabled|`boolean`|`false`|make it disabled|
+|type|`string`|`text`|input type|
+|inputMode|`string`|`text`|mobile keyboard|
+|value|`number|string`|`undefined`|value|
+|defaultValue|`number|string`|`undefined`|default Value|
+|onChange|`()=>void`|`undefined`|onchange|
+|onPressEnter|`()=>void`|`undefined`|onPressEnter|
