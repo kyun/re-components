@@ -1,7 +1,13 @@
 import React from 'react';
 
 interface InputPINProps{
+  type?: string;
+  inputMode?: string;
   length?: number;
+  defaultValue?: string;
+  onChange?: (e: any) => void;
+  onComplete?: () => void;
+  render?: () => React.ReactNode;
   [key: string]: any;  
 }
 
@@ -13,10 +19,10 @@ function initialValues({length, value}:any){
     return value.split('').slice(0, length);
   }
 }
-function InputPIN({length =4, type='text', value='', onChange, className, onComplete, focused  }:InputPINProps){
+function InputPIN({length =4, type='text',defaultValue, value, onChange, className, onComplete, focused  }:InputPINProps){
   const inputRefs:any = React.useMemo(()=> Array(length).fill(0).map(i => React.createRef()), [length]);
   const values = React.useMemo(()=>{
-    const res = initialValues({ length, value});
+    const res = initialValues({ length, value:  value});
     return res;
   },[value, length]);
   React.useEffect(()=>{
@@ -26,7 +32,7 @@ function InputPIN({length =4, type='text', value='', onChange, className, onComp
   },[focused, inputRefs]);
   function handleChange(e:any, index:number){
     const typed = e.target.value.toString();
-    onChange(() => {
+    onChange?.(() => {
       return values.map((i:any, jndex:number)=>{
         if(index === jndex) return typed[typed.length-1] || ''
         return i || '';
@@ -34,7 +40,7 @@ function InputPIN({length =4, type='text', value='', onChange, className, onComp
     })
     if (typed !=='' &&  inputRefs[index + 1]) inputRefs[index + 1].current.focus();
     else if(typed !== '' && onComplete){
-      onComplete();
+      onComplete?.();
       //inputRefs[index].current.blur();
     }
     
