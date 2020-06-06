@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useImperativeHandle, forwardRef, Ref } from "react";
-import { secToDay, useInterval } from "../utils";
 
 export interface StopwatchRef {
   start: () => void;
@@ -9,33 +8,36 @@ export interface StopwatchRef {
 }
 
 export interface Timer {
+  origin?: number,
   d: string;
   h: string;
   m: string;
   s: string;
 }
 
+type Records = Timer[];
+
 interface StopwatchProps {
   onMount?: () => void;
+  onUnMount?: () => void;
   onStart?: () => void;
   onPause?: (timer: number) => void;
   onResume?: () => void;
-  onRecord?: (timer: any) => void;
+  onRecord?: (timer: number) => void;
   onReset?: () => void;
-  render?: ({ d, h, m, s }: Timer, records: any) => any;
+  render?: ({ origin, d, h, m, s }: Timer, records: Records) => React.ReactNode;
 }
 
-type Records = Timer[];
-
-const Stopwatch = ({
+function Stopwatch ({
   onMount,
+  onUnMount,
   onStart,
   onPause,
   onResume,
   onReset,
   onRecord,
   render,
-}: StopwatchProps, ref: Ref<StopwatchRef>) => {
+}: StopwatchProps, ref: Ref<StopwatchRef>) {
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [records, setRecords] = useState<Records>([]);
@@ -74,6 +76,9 @@ const Stopwatch = ({
 
   useEffect(() => {
     onMount?.();
+    return () => {
+      onUnMount?.();
+    }
   }, []);
 
   useInterval(
@@ -84,7 +89,37 @@ const Stopwatch = ({
     isRunning
   );
 
-  return <>{render?.(secToDay(timer), records)}</>;
+  return <>{render?.(secToDay(timer), records) || <div>{ timer }</div>}</>;
 };
 
 export default forwardRef(Stopwatch);
+
+function useInterval(callback: Function, delay: number, isRunning:boolean) {
+  const savedCallback: any = React.useRef();
+
+  React.useEffect(() => {
+    savedCallback.current = callback;
+  });
+
+  React.useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (isRunning && delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay, isRunning]);
+}
+
+function secToDay(seconds: number) {
+  let d = (~~(seconds / (3600 * 24))).toString().padStart(2, "0");
+  let h = (~~((seconds % (3600 * 24)) / 3600)).toString().padStart(2, "0");
+  let m = (~~(((seconds % (3600 * 24)) % 3600) / 60))
+      .toString()
+      .padStart(2, "0");
+  let s = (~~(seconds % 60)).toString().padStart(2, "0");
+  return { origin: seconds, d, h, m, s };
+}
+
+
