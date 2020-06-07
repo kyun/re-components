@@ -13,7 +13,7 @@ A reusable countdown component for React.
 
 
 ### Examples
-[Live Demo](https://codesandbox.io/s/silly-voice-d2efo)
+~~Live Demo~~
 
 #### Basic Usage
 A simple example of how to set up a countdown which counts down from 15 seconds.
