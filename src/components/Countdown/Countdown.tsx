@@ -1,18 +1,26 @@
 import React from 'react';
 
 
+type Params = {
+  d: string,
+  h: string,
+  m: string,
+  s: string,
+  [key: string]: any;
+}
+
 interface CountdownProps{
 
   interval?: 1000 // 10 | 100 | 1000 // milliseconds
   value?: number
   autoStart?: boolean
-  render?: ({d,h,m,s, completed, isRunning}:{[key:string]:any}) => React.ReactNode;
+  render?: ({origin, d,h,m,s, completed, isRunning}:{[key:string]:any}) => React.ReactNode;
 
   onMount?: ()=>void;
   onUnmount?: ()=>void;
 
   onStart?: ()=>void;
-  onPause?: ({d,h,m,s}:{[key:string]:string})=>void;
+  onPause?: ({origin, d,h,m,s}:{[key:string]:string})=>void;
   onComplete?: ()=>void;
   onTick?: ({d,h,m,s}:{[key:string]:string}) => void;
 
@@ -48,19 +56,22 @@ function Countdown({interval=1000, value=0, autoStart = true, render, onStart, o
 
   
   React.useEffect(()=>{
-    //ComponentDidMount
-    onMount?.();
     const ms = 1000 / interval;
     setCount(value * ms);
+  }, [setCount, interval, value]);
+
+  React.useEffect(()=>{
+    //ComponentDidMount
+    onMount?.();
     return () => {
       //ComponentWillUnmount
       onUnmount?.();
     }
-  }, [onMount, setCount, onUnmount, interval, value]);
+  }, [onMount, onUnmount]);
   return (
   <>
     {
-    render?.({...secondsToDay(count), completed, isRunning}) || <div>{count}</div>
+    render?.({...secondsToDay(count), origin: count, completed, isRunning}) || <div>{count}</div>
   }
   </>
   )
