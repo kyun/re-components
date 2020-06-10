@@ -1,0 +1,18 @@
+
+.PIN1{
+
+  background-color: red;
+}
+
+.PIN1 > input {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin-right: 16px;
+}
+.PIN1 > input[value=""]{
+  background-color: blue;
+}
+.PIN1 > input{
+  background-color: green;
+}

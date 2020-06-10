@@ -12,7 +12,7 @@ I've made a lot of COMPONENTs for React.js in my project. Almost all of them are
 - [x] Button
 - [x] Input
 - [x] Countdown
-- [ ] InputPIN
+- [x] InputPIN
 - [ ] Calendar
 - [ ] Select
 - [ ] Modal
@@ -26,3 +26,4 @@ I've made a lot of COMPONENTs for React.js in my project. Almost all of them are
 - [Button](https://github.com/zynkn/re-components/tree/master/src/components/Button)
 - [Input](https://github.com/zynkn/re-components/tree/master/src/components/Input)
 - [Countdown](https://github.com/zynkn/re-components/tree/master/src/components/Countdown)
+- [InputPIN](https://github.com/zynkn/re-components/tree/master/src/components/InputPIN)

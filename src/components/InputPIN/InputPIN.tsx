@@ -12,6 +12,8 @@ interface InputPINProps{
 }
 
 function initialValues({length, value}:any){
+  console.log(length);
+  console.log(value.length);
   const t = length - value.length;
   if(t > 0){
     return [...value.split(''), ...Array(t).fill('')];
@@ -20,11 +22,15 @@ function initialValues({length, value}:any){
   }
 }
 function InputPIN({length =4, type='text',defaultValue, value, onChange, className, onComplete, focused  }:InputPINProps){
+  console.log('InputPIN rendered')
   const inputRefs:any = React.useMemo(()=> Array(length).fill(0).map(i => React.createRef()), [length]);
   const values = React.useMemo(()=>{
+    console.log('useMemo!')
     const res = initialValues({ length, value:  value});
     return res;
   },[value, length]);
+
+
   React.useEffect(()=>{
     if(focused){
       inputRefs[0].current.focus();
@@ -37,9 +43,11 @@ function InputPIN({length =4, type='text',defaultValue, value, onChange, classNa
         if(index === jndex) return typed[typed.length-1] || ''
         return i || '';
       }).join('');
-    })
+    });
+
     if (typed !=='' &&  inputRefs[index + 1]) inputRefs[index + 1].current.focus();
-    else if(typed !== '' && onComplete){
+    else if(typed !== ''){
+      console.log('onCompleted?')
       onComplete?.();
       //inputRefs[index].current.blur();
     }
@@ -47,7 +55,7 @@ function InputPIN({length =4, type='text',defaultValue, value, onChange, classNa
   }
   function handleBackspace(e:any, index:number) {
     if(e.keyCode === 8){
-      if(values[index] === '' &&inputRefs[index-1]){
+      if((e.target.value === '') &&inputRefs[index-1]){
         inputRefs[index - 1].current.focus();
       }
     }
@@ -57,7 +65,7 @@ function InputPIN({length =4, type='text',defaultValue, value, onChange, classNa
       {
         new Array(length).fill(0).map((i,index)=>(
         <input key={index} 
-              value={values[index] || ''} 
+              value={values[index] } 
               onKeyDown={(e)=>handleBackspace(e,index)} 
               type={type} 
               ref={inputRefs[index]} 
