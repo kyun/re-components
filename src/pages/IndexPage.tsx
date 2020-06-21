@@ -10,48 +10,52 @@ function IndexPage(){
   const [value, setValue] = React.useState('');
   const ref = React.useRef<any>(null);
   const barRef = React.useRef<any>(null);
-  // //const curPercentage = ((ref?.current?.curTime / ref?.current?.duration) * 100) || 0 ;
-  // const curPercentage = React.useMemo(()=>{
-  //   return ((ref?.current?.curTime / ref?.current?.duration) * 100) || 0 
-  // },[ref.current]);
-  // function handleStart(){
-  //   if(ref.current){
-  //     ref?.current.start();
-  //   }
-  // }
-  // function updateTimeOnMove(e:any){
-  //   const clickPositionInPage = e.pageX;
-  //   const barStart = barRef?.current.getBoundingClientRect().left + window.scrollX;
-  //   const barWidth = barRef?.current.offsetWidth;
-  //   const clickPositionInBar = clickPositionInPage - barStart;
-  //   const timePerPixel = ref?.current.duration / barWidth;
-  //   console.log(timePerPixel * clickPositionInBar);
-  //   const res = timePerPixel * clickPositionInBar
-  //   ref?.current.setClickedTime(res)
-  // }
-  // function handleDrag(e:any){
- 
-  //   document.addEventListener('mousemove',updateTimeOnMove);
-  //   document.addEventListener("mouseup", () => {
-  //     document.removeEventListener("mousemove", updateTimeOnMove);
-  //   });
-  // }
+
+  // React.useEffect(()=>{
+  //   ref.current?.play()
+  // },[]);
+  function handlePlay(){
+    ref.current?.play();
+  }
+  function handlePause(){
+    ref.current?.pause();
+  }
+  function handleTime(time:number){
+    ref.current?.addSeconds(time);
+  }
+  function watchPlay(e:any){
+    console.log(e);
+  }
+  function watchSeek(e:any){
+    console.log(e);
+  }
   return (
     <main style={{maxWidth: 768, margin: 'auto'}}>
       <div style={{padding: 8, border: '1px solid gray'}}>
         <p>Basic Usage</p>
-        <AudioPlayer ref={ref} src={`https://d2cmeu8d0v67u4.cloudfront.net/audio-merge/201788_bgTykQn9wtWBcBVt4KYf.m4a`} />
-        {/* <Button onClick={handleStart}>Start</Button>
-        <Button onClick={()=>ref?.current.pause()}>Pause</Button>
-        <div style={{margin: 8, position: 'relative'}}>
-          <div ref={barRef} onMouseDown={handleDrag} style={{background: 'red', width: '100%', height: '8px'}} />
-          <span
-            className="bar__progress__knob"
-            style={{ display: 'block', width: 20, height: 20, background: 'red', left: `${curPercentage - 2}%`, position: 'absolute' }}
-          />
-        </div> */}
+        <AudioPlayer onPlay={watchPlay} onSeeked={watchSeek} ref={ref} src={`https://d2cmeu8d0v67u4.cloudfront.net/audio-merge/201788_bgTykQn9wtWBcBVt4KYf.m4a`} />
+        <Button onClick={handlePlay}>Play</Button>
+        <Button onClick={handlePause}>Pause</Button>
+
+        <Button onClick={()=>handleTime(-5)}>-5sec</Button>
+        <Button onClick={()=>handleTime(5)}>5sec</Button>
+
+        <AudioPlayer src={`https://d2cmeu8d0v67u4.cloudfront.net/audio-merge/201788_bgTykQn9wtWBcBVt4KYf.m4a`} render={CustomRender} autoPlay={false}/>
+
       </div>
     </main>
+  )
+}
+
+function CustomRender(props:any){
+  console.log(props);
+  return (
+    <div>
+      <span>{props.currentTime}</span>
+      <div>
+        <Button onClick={props.handlePlay}>Playing!</Button>
+      </div>
+    </div>
   )
 }
 export default IndexPage;
