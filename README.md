@@ -13,6 +13,7 @@ I've made a lot of COMPONENTs for React.js in my project. Almost all of them are
 - [x] Input
 - [x] Countdown
 - [x] InputPIN
+- [ ] AudioPlayer
 - [ ] Calendar
 - [ ] Select
 - [ ] Modal
