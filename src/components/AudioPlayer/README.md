@@ -34,13 +34,16 @@ ReactDOM.render(
 
 |Name|Type|Default|Description|
 |:--|:--:|:-----:|:-----------|
-|interval|1000|1000|현재 밀리세컨드 미지원|
-|value|`number`|`0`|시작 초|
-|autoStart|`boolean`|`true`|Mount 이후 자동 시작|
+
+|autoPlay|`boolean`|`true`|Mount 이후 자동 시작|
 |render|`()=>ReactNode`|`undefined`|for Custom render|
 |onMount|`()=>void`|`undefined`|Mount시 이벤트 처리|
-|onUnmount|`()=>void`|`undefined`|Unmount시 이벤트 처리|
-|onStart|`()=>void`|`undefined`|카운트 다운 Start시 이벤트 처리|
-|onPause|`({origin,d,h,m,s})=>void`|`undefined`|카운트 다운 Pause시 이벤트 처리|
-|onComplete|`()=>void`|`undefined`|카운트 다운 완료시 이벤트 처리|
-|onTick|`({origin,d,h,m,s})=>void`|`undefined`|매 `interval`마다 이벤트 처리|
+|onPlay|`()=>void`|`undefined`|Play|
+|onPause|`()=>void`|`undefined`|Pause|
+|onListen|`()=>void`|`undefined`|Listen|
+|onSeeked|`()=>void`|`undefined`|Seeked|
+|onEnded|`()=>void`|`undefined`|Ended|
+|onCanPlay|`()=>void`|`undefined`|CanPlay|
+|onLoadedMeta|`()=>void`|`undefined`|LoadedMeta|
+|onLoaded|`()=>void`|`undefined`|Loaded|
+

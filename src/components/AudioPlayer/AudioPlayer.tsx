@@ -5,6 +5,7 @@ import momentDurationFormatSetup from "moment-duration-format";
 
 interface AudioPlayerProps{
   src: string;
+  loop?:boolean;
   autoPlay?: boolean;
   muted?: boolean;
   onLoadedMeta?:()=>void;
@@ -15,10 +16,11 @@ interface AudioPlayerProps{
   onPause?: ()=>void;
   onSeeked?: (e:any)=>void;
   onEnded?: (e:any)=>void;
+  onVolumeChanged?: () =>void;
   render?: (e:any)=>any;
   [key:string]: any;
 }
-function AudioPlayer({src, autoPlay= false, muted= false, onPlay, onSeeked,onPause, onEnded, onListen ,render}:AudioPlayerProps,ref:any, ){
+function AudioPlayer({src, autoPlay= false,loop=false, muted= false, onVolumeChanged,  onPlay, onSeeked,onPause,onLoadedMeta, onEnded, onListen ,render}:AudioPlayerProps,ref:any, ){
   // const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer();
   const audioRef = React.useRef<any>(null);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -56,7 +58,6 @@ function AudioPlayer({src, autoPlay= false, muted= false, onPlay, onSeeked,onPau
   }
   function handleTimeUpdate(){
     const curPercentage = (audioRef.current.currentTime / audioRef.current.duration)
-    // console.log(curPercentage+'%')
     onListen?.({
       currentPercentage: curPercentage,
       currentTime: audioRef.current.currentTime,
@@ -65,11 +66,13 @@ function AudioPlayer({src, autoPlay= false, muted= false, onPlay, onSeeked,onPau
   }
 
   function handleLoadedData(){
-    console.log('loadedData')
+    console.log('loadedData');
+    console.log(audioRef.current.volume);
     setIsLoading(false);
   }
   function handleLoadedMeta(){
     console.log('handleLoadedMeta');
+    onLoadedMeta?.();
   }
   function handleEnded(){
     console.log('handleEnded');
@@ -87,11 +90,15 @@ function AudioPlayer({src, autoPlay= false, muted= false, onPlay, onSeeked,onPau
       currentPerentage: (audioRef.current.currentTime / audioRef.current.duration)
     })
   }
+  function handleVolumeChanged(){
+    console.log('handleVolumeChanged');
+    console.log(audioRef.current.volume);
+  }
 
   if(render){
     return (
       <>
-        <audio preload="metadata"  onPlay={handlePlay}  onPause={handlePaused}  onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMeta} onLoadedData={handleLoadedData} src={src} ref={audioRef} autoPlay={autoPlay}/>
+        <audio muted={muted} loop={loop} preload="metadata"  onPlay={handlePlay}  onPause={handlePaused}  onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMeta} onLoadedData={handleLoadedData} src={src} ref={audioRef} autoPlay={autoPlay}/>
         {render({
           value,
           duration: audioRef.current?.duration,
@@ -99,14 +106,14 @@ function AudioPlayer({src, autoPlay= false, muted= false, onPlay, onSeeked,onPau
           handleChange: (e:any)=>handleChange(e),
           play: () => audioRef.current?.play(),
           pause: () => audioRef.current?.pause(),
-          addCurrentTime: (time:any) => handleCurrentTime(time)
+          addCurrentTime: (time:any) => handleCurrentTime(time),
         })}
       </>
     );
   }
   return(
     <div>
-      <audio preload="metadata" onLoadedMetadata={handleLoadedMeta} onLoadedData={handleLoadedData} onPlay={handlePlay} onPause={handlePaused} onEnded={handleEnded} onTimeUpdate={handleTimeUpdate} ref={audioRef} src={src}  controls/>
+      <audio onVolumeChange={handleVolumeChanged}  muted={muted}  loop={loop} preload="metadata" onLoadedMetadata={handleLoadedMeta} onLoadedData={handleLoadedData} onPlay={handlePlay} onPause={handlePaused} onEnded={handleEnded} onTimeUpdate={handleTimeUpdate} ref={audioRef} src={src}  controls/>
       {isLoading && <h1>Loadding...</h1>}
       <input min={0} max={1} step="any" value={value}  type="range" style={{width: '100%'}} onChange={handleChange} />
     </div>
