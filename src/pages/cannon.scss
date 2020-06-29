@@ -1,0 +1,28 @@
+.cannon-btn{
+
+  background: red;
+
+
+  //transition: transform 5s linear;
+
+}
+
+.dot{
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: blue;
+}
+
+.--anim{
+  animation: test 1s;
+}
+
+@keyframes test{
+  0%{
+    transform: translateX(0px);
+  }
+  100%{
+    transform: translateX(200px);
+  }
+}

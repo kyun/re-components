@@ -7,6 +7,7 @@ import AudioPlayer from '../components/AudioPlayer';
 import Button from '../components/Button';
 import { ECANCELED } from 'constants';
 import Countdown from '../components/Countdown';
+import './cannon.scss';
 
 function IndexPage(){
   const ref = React.useRef<any>(null);
@@ -40,10 +41,36 @@ function IndexPage(){
 
 function CustomRender(props:any){
   const [vol, setVol] = React.useState(0);
-
-  //console.log(props);
+  const modalRef = React.useRef<any>(null);
+  const [pressed, setPressed] = React.useState(false);
+  const [start, setStart] = React.useState<any>(0);
+  const [shoot, setShoot] = React.useState(false);
+  useInterval(() => {
+    // Your custom logic here
+    pressed && start < 3 && setStart((prev:any)=> Number((prev+0.1).toFixed(1)));
+  }, 100);
+  useInterval(()=>{
+    !pressed && start > 0 && setStart((prev:any)=>{
+      if( Number((prev-0.5).toFixed(1)) < 0){
+        return 0;
+      }
+      return Number((prev-0.5).toFixed(1))
+    });
+  }, 20);
+  function handleModal(){
+    modalRef?.current?.open();
+  }
+  function handleModalClose(){
+    modalRef?.current?.close();
+  }
   return (
     <div>
+      <Modal ref={modalRef}>
+        <div style={{width: 300, height: 300, background: 'white'}}>
+          <button onClick={handleModalClose}>close</button>
+        </div>
+      </Modal>
+      <Button onClick={handleModal}>OPEN MODAL</Button>
       <span>{props.currentTime}</span><br/>
       <input min={0} max={1} step="any" type="range" value={props.value} onChange={props.handleChange} />
       <div>
@@ -59,7 +86,48 @@ function CustomRender(props:any){
         const volume = Number(e.target.value).toFixed(2);
         props.setVolume(Number(volume))
       }} />
+
+      <Button
+        className="cannon-btn"
+        onMouseDown={()=>{
+          console.log('mouseDown')
+          setShoot(false);
+          setPressed(true);
+        }}
+        onMouseUp={()=>{
+          console.log('mouseUp')
+          setShoot(true);
+          setPressed(false);
+
+        }}
+        style={{
+          transform: `rotate(-${start*15}deg)`
+        }}
+      >ggg</Button>
+      <span className={`dot ${shoot? '--anim': ''}`} />
+      <p>{start}</p>
     </div>
   )
 }
 export default IndexPage;
+
+
+function useInterval(callback:any, delay:any) {
+  const savedCallback = React.useRef<any>();
+
+  // Remember the latest callback.
+  React.useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  React.useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
