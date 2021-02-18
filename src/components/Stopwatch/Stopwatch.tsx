@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useImperativeHandle, forwardRef, Ref } from "react";
+import React, {useState, useEffect, useImperativeHandle, forwardRef, Ref, MutableRefObject} from "react";
 
 export interface StopwatchRef {
   start: () => void;
@@ -95,7 +95,7 @@ function Stopwatch ({
 export default forwardRef(Stopwatch);
 
 function useInterval(callback: Function, delay: number, isRunning:boolean) {
-  const savedCallback: any = React.useRef();
+  const savedCallback: React.MutableRefObject<Function | undefined> = React.useRef();
 
   React.useEffect(() => {
     savedCallback.current = callback;
@@ -103,7 +103,7 @@ function useInterval(callback: Function, delay: number, isRunning:boolean) {
 
   React.useEffect(() => {
     function tick() {
-      savedCallback.current();
+      savedCallback?.current?.();
     }
     if (isRunning && delay !== null) {
       let id = setInterval(tick, delay);
