@@ -14,7 +14,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.5",
     "gh-pages": "^3.0.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
